@@ -1,0 +1,45 @@
+<md-content>
+
+  <md-card>
+    <md-card-content>
+
+      <md-button ng-click="reset()" class="md-fab">
+        <i class="material-icons">replay</i>
+      </md-button>
+      <md-button ng-click="undo()" ng-disabled="undoDisabled" class="md-fab">
+        <i class="material-icons">undo</i>
+      </md-button>
+      <md-button class="md-fab md-primary">
+        <i class="material-icons">done</i>
+      </md-button>
+
+      <br>
+      <h2>
+        <md-input-container>
+          <input ng-model="placeholderCanonical" class="">
+        </md-input-container>
+      </h2>
+
+      <div layout="row">
+
+        <div flex="50">
+          <md-subheader>Included Matches</md-subheader>
+          <div ng-repeat="included in placeholderList.included">
+            <md-button ng-click="exclude(included)" class="">{{included}}</md-button>
+          </div>
+        </div>
+
+        <div flex="50">
+          <md-subheader class="md-warn">Excluded Matches</md-subheader>
+          <div ng-repeat="excluded in placeholderList.excluded">
+            <md-button ng-click="include(excluded)" class="md-accent">{{excluded}}</md-button>
+          </div>
+        </div>
+
+      </div> <!-- row -->
+ 
+
+    </md-card-content>
+  </md-card>
+
+</md-content>
