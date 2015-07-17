@@ -1,6 +1,7 @@
 var app = angular.module('Canyonero', [
     'ngRoute', 
-    'ngMaterial'
+    'ngMaterial',
+    'ngAnimate'
 ]);
 
 app.config(function ($routeProvider, $locationProvider) {

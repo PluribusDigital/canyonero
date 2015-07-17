@@ -4,13 +4,13 @@
     <md-card-content>
 
       <md-button ng-click="reset()" class="md-fab">
-        <i class="material-icons">replay</i>
+        <md-icon>replay</md-icon>
       </md-button>
       <md-button ng-click="undo()" ng-disabled="undoDisabled" class="md-fab">
-        <i class="material-icons">undo</i>
+        <md-icon>undo</md-icon>
       </md-button>
       <md-button class="md-fab md-primary">
-        <i class="material-icons">done</i>
+        <md-icon>done</md-icon>
       </md-button>
 
       <br>
@@ -24,8 +24,8 @@
 
         <div flex="50">
           <md-subheader>Included Matches</md-subheader>
-          <div ng-repeat="included in placeholderList.included">
-            <md-button ng-click="exclude(included)" class="">{{included}}</md-button>
+          <div ng-repeat="included in placeholderList.included" ng-animate="'animate'" >
+            <md-button ng-click="exclude(included)">{{included}}</md-button>
           </div>
         </div>
 
