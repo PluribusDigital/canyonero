@@ -6,7 +6,7 @@
 
 # Ignore bundler config. - use "rake bower:install" to fill the directory
 /.bundle
-/vendor/assets/bower_components
+/bower_components
 
 # use install instead
 /node_modules
