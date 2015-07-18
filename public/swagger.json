@@ -1,0 +1,529 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Canyonero"
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "description": "Displays the available canon cannons",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Link"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/nameset": {
+            "get": {
+                "description": "Displays the available name sets",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Link"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Add a new name set",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "The new name set",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NameSet"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Name set successfully created",
+                        "schema": {
+                            "type": "integer",
+                            "description": "The ID of the newly created name set"
+                        }
+                    },
+                    "400": {
+                        "description": "Name set not in the correct format"
+                    }
+                }
+            }
+        },
+        "/nameset/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "The sequential number of the name set",
+                    "type": "integer",
+                    "required": true
+                }
+            ],
+            "get": {
+                "description": "Get a specific nameset",
+                "parameters": [
+                    {
+                        "name": "recalculate",
+                        "in": "query",
+                        "description": "If present, the clusters are recalculated before returning the name set",
+                        "type": "boolean",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/FullNameSet"
+                        }
+                    },
+                    "404": {
+                        "description": "Name set not found"
+                    }
+                }
+            },
+            "put": {
+                "description": "Update the whole name set",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "The updated name set",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NameSet"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The name set was succesfully updated and the clusters have been calculated"
+                    },
+                    "400": {
+                        "description": "Name set not in the correct format"
+                    },
+                    "404": {
+                        "description": "Name set not found"
+                    }
+                }
+            },
+            "delete": {
+                "description": "Removes a name set from from the list",
+                "responses": {
+                    "204": {
+                        "description": "Successfully deleted"
+                    },
+                    "404": {
+                        "description": "Name set not found"
+                    }
+                }
+            }
+        },
+        "/nameset/{id}/abbrev/": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "The sequential number of the name set",
+                    "type": "integer",
+                    "required": true
+                }
+            ],
+            "get": {
+                "description": "Lists all of the abbreviations in the name set",
+                "responses": {
+                    "200": {
+                        "description": "Returns the dictionary of all the abbreviations being used"
+                    },
+                    "404": {
+                        "description": "Name set not found"
+                    }
+                }
+            },
+            "put": {
+                "description": "Updates the whole list of abbreviations",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "A dictionary of abbreviations and their expansions",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "recalculate",
+                        "in": "query",
+                        "description": "If present, the clusters are recalculated after updating the abbreviations",
+                        "type": "boolean",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The abbreviations were updated and the clusters have been calculated"
+                    },
+                    "205": {
+                        "description": "The abbreviations were updated but the clusters need to be regenerated"
+                    },
+                    "400": {
+                        "description": "Abbreviations not in the correct format"
+                    },
+                    "404": {
+                        "description": "Name set not found"
+                    }
+                }
+            },
+            "delete": {
+                "description": "Clears all abbreviations from the name set",
+                "parameters": [
+                    {
+                        "name": "recalculate",
+                        "in": "query",
+                        "description": "If present, the clusters are recalculated after clearing the abbreviations",
+                        "type": "boolean",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successfully cleared and the clusters have been recalculated"
+                    },
+                    "205": {
+                        "description": "The abbreviations were cleared but the clusters need to be regenerated"
+                    },
+                    "404": {
+                        "description": "Name set not found"
+                    }
+                }
+            }
+        },
+        "/nameset/{id}/ignore/": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "The sequential number of the name set",
+                    "type": "integer",
+                    "required": true
+                }
+            ],
+            "get": {
+                "description": "Lists all of the tokens being ignored in the name set",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Name set not found"
+                    }
+                }
+            },
+            "put": {
+                "description": "Updates the whole list of ignored tokens",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "A list of tokens to ignore",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    {
+                        "name": "recalculate",
+                        "in": "query",
+                        "description": "If present, the clusters are recalculated after updating the ignore tokens",
+                        "type": "boolean",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The list of ignored tokens were updated and the clusters have been calculated"
+                    },
+                    "205": {
+                        "description": "The list of ignored tokens were updated but the clusters need to be regenerated"
+                    },
+                    "400": {
+                        "description": "List of ignored tokens is not in the correct format"
+                    },
+                    "404": {
+                        "description": "Name set not found"
+                    }
+                }
+            },
+            "delete": {
+                "description": "Clears all ignored tokens from the name set",
+                "parameters": [
+                    {
+                        "name": "recalculate",
+                        "in": "query",
+                        "description": "If present, the clusters are recalculated after clearing the ignored list",
+                        "type": "boolean",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successfully cleared and the clusters have been recalculated"
+                    },
+                    "205": {
+                        "description": "The ignored tokens were cleared but the clusters need to be regenerated"
+                    },
+                    "404": {
+                        "description": "Name set not found"
+                    }
+                }
+            }
+        },
+        "/nameset/{id}/cluster/": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "The sequential number of the name set",
+                    "type": "integer",
+                    "required": true
+                }
+            ],
+            "get": {
+                "description": "Retrieves the clusters for this name set",
+                "parameters": [
+                    {
+                        "name": "all",
+                        "in": "query",
+                        "description": "If present, all records are returned.  The default only returns the ambiguous clusters",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Link"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Name set or cluster not found"
+                    }
+                }
+            },
+            "post": {
+                "description": "Creates a new cluster from scratch.  These will not survive regeneration",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "The new cluster to create",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NameCluster"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Name set, cluster or variant not found"
+                    }
+                }
+            }
+        },
+        "/nameset/{id}/cluster/{key}/": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "The sequential number of the name set",
+                    "type": "integer",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "in": "path",
+                    "description": "The normalized key that identifies the cluster",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "get": {
+                "description": "The cluster for this name set",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/NameCluster"
+                        }
+                    },
+                    "404": {
+                        "description": "Name set or cluster not found"
+                    }
+                }
+            },
+            "post": {
+                "description": "Operations on the cluster",
+                "parameters": [
+                    {
+                        "name": "transferToCluster",
+                        "in": "query",
+                        "description": "Identifies the destination for a variation",
+                        "type": "string",
+                        "required": false
+                    },
+                    {
+                        "name": "variantToTransfer",
+                        "in": "query",
+                        "description": "Identifies which variant is being acted upon",
+                        "type": "integer",
+                        "required": false
+                    },
+                    {
+                        "name": "setAsCanon",
+                        "in": "query",
+                        "description": "Identifies the variant to mark as the canonical form",
+                        "type": "integer",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Name set, cluster or variant not found"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Link": {
+            "properties": {
+                "href": {
+                    "type": "string",
+                    "description": "A URL"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Internet Media Type",
+                    "example": "application/atom+json, text/json"
+                },
+                "rel": {
+                    "type": "string",
+                    "description": "[An Atom link relation](http://www.iana.org/assignments/link-relations/link-relations.xhtml)",
+                    "example": "collection, item"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "The name of the link"
+                }
+            }
+        },
+        "NameCluster": {
+            "required": [
+                "variations"
+            ],
+            "properties": {
+                "validated": {
+                    "description": "If true, the user has verified the cluster's canonical representation -or- there is no ambiguity",
+                    "type": "boolean"
+                },
+                "canon": {
+                    "description": "Represents the 'correct' form of the name",
+                    "type": "string"
+                },
+                "key": {
+                    "description": "The normalized representation of the cluster",
+                    "type": "string"
+                },
+                "variations": {
+                    "description": "The list of all variations of the names in the cluster",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "NameSet": {
+            "required": [
+                "title",
+                "names"
+            ],
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "The name of the data set"
+                },
+                "names": {
+                    "type": "array",
+                    "description": "A list of names to canonize,",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "abbrev": {
+                    "description": "A dictionary of abbreviations and their expansions",
+                    "example": "{id: identifier, corp: corporation}"
+                },
+                "ignore": {
+                    "description": "An array of strings to ignore when creating clusters",
+                    "example": "['.', 'inc', 'llc']",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "FullNameSet": {
+            "description": "Includes the same basic information as the NameSet but adds the generated clusters",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/NameSet"
+                }
+            ],
+            "properties": {
+                "clusters": {
+                    "type": "array",
+                    "description": "A dictionary of the clusters that were generated",
+                    "items": {
+                        "$ref": "#/definitions/NameCluster"
+                    }
+                }
+            }
+        }
+    }
+}
