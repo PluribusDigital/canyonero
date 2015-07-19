@@ -1,2 +1,2 @@
-from canyonero.sponge import *
-from canyonero.bk_tree import *
+from canyonero.resources.sponge import *
+from canyonero.models.bk_tree import *
