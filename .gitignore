@@ -15,9 +15,9 @@
 *.orig
 
 # ignore Visual Studio project files
-*.sln
+#*.sln
 *.suo
-*.pyproj
+#*.pyproj
 
 # Ignore all logfiles and tempfiles.
 /log/*.log

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{a62f8cc8-1ec1-4433-b355-370868530f80}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>canyonero\__main__.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <ItemGroup>
+    <Compile Include="canyonero\dal\data_context.py" />
+    <Compile Include="setup.py" />
+    <Compile Include="canyonero\__init__.py" />
+    <Compile Include="canyonero\__main__.py" />
+    <Compile Include="tests\__init__.py" />
+    <Compile Include="canyonero\dal\encoder.py" />
+    <Compile Include="canyonero\dal\__init__.py" />
+    <Compile Include="canyonero\models\bk_tree.py" />
+    <Compile Include="canyonero\models\name_cluster.py" />
+    <Compile Include="canyonero\models\name_set.py" />
+    <Compile Include="canyonero\models\__init__.py" />
+    <Compile Include="canyonero\resources\powder.py" />
+    <Compile Include="canyonero\resources\sponge.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="canyonero" />
+    <Folder Include="canyonero\dal" />
+    <Folder Include="canyonero\models" />
+    <Folder Include="canyonero\resources" />
+    <Folder Include="tests" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+</Project>
