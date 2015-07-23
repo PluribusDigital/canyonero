@@ -15,9 +15,13 @@ _cache = []
 def cache():
     global _cache
     if not _cache:
-        with open(os.path.join(DATAPATH, 'db.p'), 'rb') as f:
-            _cache = pickle.load(f)
+        reset()
     return _cache
+
+def reset():
+    global _cache
+    with open(os.path.join(DATAPATH, 'db.p'), 'rb') as f:
+        _cache = pickle.load(f)
 
 #------------------------------------------------------------------------------
 # Access the database
@@ -55,10 +59,14 @@ class DataContext():
         cache()[key] = None
         # then save
 
-if __name__ == '__main__':
-    ctxt = DataContext()
-    print(json.dumps(ctxt[0], cls=ModelEncoder))
-    print(len(ctxt))
-    del ctxt[0]
-    print(json.dumps(ctxt[0], cls=ModelEncoder))
-    print(len(ctxt))
+    # -------------------------------------------------------------------------
+    # Transaction functions
+    # -------------------------------------------------------------------------
+    def beginTransaction(self):
+        pass
+
+    def commit(self):
+        pass
+    
+    def rollBack(self):
+        reset()
