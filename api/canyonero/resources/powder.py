@@ -24,7 +24,7 @@ print('loading')
 dirty = load_data('openfda-manufacturer_name.txt')
 
 print('initializing')
-nameSet = NameSet('Manufacturers', list(dirty)[:5000])
+nameSet = NameSet('Manufacturers', list(dirty))
 print('building')
 nameSet.buildClusters()
 
