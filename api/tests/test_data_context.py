@@ -1,6 +1,5 @@
 import unittest
-import canyonero
-from canyonero.dal import DataContext
+from canyonero.nameSet import *
 
 class TestDataContext(unittest.TestCase):
     def setUp(self):
@@ -20,17 +19,17 @@ class TestDataContext(unittest.TestCase):
     def testGetAll(self):
         count = 0
         for ns in self.target:
-            self.assertIsInstance(ns, canyonero.NameSet)
+            self.assertIsInstance(ns, NameSet)
             count += 1
         self.assertEqual(1, count)
 
     def testGet(self):
         ns = self.target[0]
-        self.assertIsInstance(ns, canyonero.NameSet)
+        self.assertIsInstance(ns, NameSet)
 
     def testUpdate(self):
         ns = self.target[0]
-        self.assertIsInstance(ns, canyonero.NameSet)
+        self.assertIsInstance(ns, NameSet)
         ns.title = 'A new title'
         self.target[0] = ns
         

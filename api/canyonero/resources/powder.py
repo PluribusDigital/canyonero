@@ -4,12 +4,11 @@ import os
 import csv
 import json
 import pickle
-from canyonero.models import NameSet
-from canyonero.dal import ModelEncoder
+from canyonero.nameSet import *
 
 ## Important Paths
 INPATH = os.path.join(os.path.dirname(__file__), "../../../data/")
-OUTPATH = os.path.join(os.path.dirname(__file__), "../dal/")
+OUTPATH = os.path.join(os.path.dirname(__file__), "../nameSet/")
 
 def load_data(name):
     """
@@ -25,7 +24,7 @@ print('loading')
 dirty = load_data('openfda-manufacturer_name.txt')
 
 print('initializing')
-nameSet = NameSet('Manufacturers', list(dirty))
+nameSet = NameSet('Manufacturers', list(dirty)[:5000])
 print('building')
 nameSet.buildClusters()
 

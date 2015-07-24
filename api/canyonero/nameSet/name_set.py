@@ -2,7 +2,8 @@ import unicodedata
 import sys
 from collections import defaultdict
 import nltk
-from canyonero.models import BKNode, NameCluster
+from canyonero.analysis import *
+from canyonero.nameSet import *
 
 class NameSet():
     """ The organizing structure for determining the canonical \

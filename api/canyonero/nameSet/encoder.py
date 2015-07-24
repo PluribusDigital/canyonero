@@ -1,16 +1,16 @@
 import json
-import canyonero
+from canyonero.nameSet import *
 
 class ModelEncoder(json.JSONEncoder):
      def default(self, obj):
-         if isinstance(obj, canyonero.NameCluster):
+         if isinstance(obj, NameCluster):
              return { 
                  'canon': obj.canon,
                  'key' : obj.key,
                  'validated': obj.validated,
                  'variations': sorted(obj.variations)
                  } 
-         elif isinstance(obj, canyonero.NameSet):
+         elif isinstance(obj, NameSet):
              return {
                  'abbrev': obj.abbrev,
                  'ignore' : sorted(obj.ignore),

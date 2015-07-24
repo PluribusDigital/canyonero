@@ -1,14 +1,15 @@
-#import unittest
-#import flaskr
-#from canyonero import App
+import unittest
+import canyonero
 
-#class Test_RootEndpoint(unittest.TestCase):
-#    def setUp(self):
-#        self.app = flaskr.app.test_client()
+class Test_RootEndpoint(unittest.TestCase):
+    def setUp(self):
+        flaskInstance = canyonero.App()
+        self.target = flaskInstance.app.test_client()
 
-#    def test_get(self):
-#        rv = self.app.get('/')
-#        print(rv)
+    def test_get(self):
+        rv = self.target.get('/')
+        print(rv)
+        assert b'Link' in rv.data
 
-#if __name__ == '__main__':
-#    unittest.main()
+if __name__ == '__main__':
+    unittest.main()

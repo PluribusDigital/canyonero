@@ -1,8 +1,6 @@
 import os
 import json
 import pickle
-from canyonero.models import NameSet
-from canyonero.dal import ModelEncoder
 
 #------------------------------------------------------------------------------
 # The "Database"

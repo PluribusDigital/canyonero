@@ -1,6 +1,6 @@
-from canyonero.models import *
-from canyonero.dal import *
+from canyonero.analysis import *
+from canyonero.nameSet import *
 
-from canyonero.resources.sponge import *
+from canyonero.endpointRoot import *
 
 from canyonero.app import *
