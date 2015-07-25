@@ -20,10 +20,16 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="canyonero\nameSet\data_context.py" />
+    <Compile Include="canyonero\nameSet\name_set_endp_index.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="setup.py" />
     <Compile Include="canyonero\__init__.py" />
     <Compile Include="canyonero\__main__.py" />
     <Compile Include="tests\test_data_context.py" />
+    <Compile Include="tests\test_nameset_index.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tests\test_root.py" />
     <Compile Include="tests\__init__.py" />
     <Compile Include="canyonero\nameSet\encoder.py" />
@@ -33,7 +39,6 @@
     <Compile Include="canyonero\nameSet\name_set.py" />
     <Compile Include="canyonero\nameSet\__init__.py" />
     <Compile Include="canyonero\resources\powder.py" />
-    <Compile Include="canyonero\resources\sponge.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="canyonero" />

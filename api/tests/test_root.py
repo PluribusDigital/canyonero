@@ -6,9 +6,10 @@ class Test_RootEndpoint(unittest.TestCase):
     def setUp(self):
         flaskInstance = canyonero.App()
         self.target = flaskInstance.app.test_client()
+        self.url = '/'
 
     def test_get(self):
-        rv = self.target.get('/')
+        rv = self.target.get(self.url)
         self.assertEqual(200, rv.status_code)
 
         result = json.loads(rv.data.decode('utf-8'))
@@ -16,6 +17,18 @@ class Test_RootEndpoint(unittest.TestCase):
         self.assertIn('link', result[0])
         self.assertIn('href', result[0]['link'])
         self.assertIn('nameset', result[0]['link']['href'])
+
+    def test_delete(self):
+        rv = self.target.delete(self.url)
+        self.assertEqual(405, rv.status_code)
+
+    def test_put(self):
+        rv = self.target.put(self.url, data={'a': '1'})
+        self.assertEqual(405, rv.status_code)
+
+    def test_post(self):
+        rv = self.target.post(self.url, data={'a': '1'})
+        self.assertEqual(405, rv.status_code)
 
 if __name__ == '__main__':
     unittest.main()

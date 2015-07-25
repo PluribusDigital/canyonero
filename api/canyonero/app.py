@@ -11,6 +11,7 @@ class App(object):
         self.api = Api(self.app)
 
         self.api.add_resource(canyonero.Root, '/')
+        self.api.add_resource(canyonero.NameSetEndpointIndex, '/nameset')
 
     def run(self, debug):
         self.app.run()

@@ -5,11 +5,10 @@ class Root(Resource):
     """ Return the list of available top-level endpoint
     """
     def get(self):
-        links = [
+        return [
             {'link': 
-             {'href': request.base_url + 'nameset/',
+             {'href': request.base_url + 'nameset',
               'rel': 'collection',
               'title': 'Name Sets',
               'type': 'application/json'}
              }]
-        return links

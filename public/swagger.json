@@ -38,6 +38,10 @@
             },
             "post": {
                 "description": "Add a new name set",
+                "consumes": [
+                    "application/json",
+                    "text"
+                ],
                 "parameters": [
                     {
                         "in": "body",
@@ -79,8 +83,8 @@
                     {
                         "name": "recalculate",
                         "in": "query",
-                        "description": "If present, the clusters are recalculated before returning the name set",
-                        "type": "boolean",
+                        "description": "If present, indicates the number of allowed edit distances between names to be considered in the same cluster",
+                        "type": "integer",
                         "required": false
                     }
                 ],
@@ -169,8 +173,8 @@
                     {
                         "name": "recalculate",
                         "in": "query",
-                        "description": "If present, the clusters are recalculated after updating the abbreviations",
-                        "type": "boolean",
+                        "description": "If present, indicates the number of allowed edit distances between names to be considered in the same cluster",
+                        "type": "integer",
                         "required": false
                     }
                 ],
@@ -195,8 +199,8 @@
                     {
                         "name": "recalculate",
                         "in": "query",
-                        "description": "If present, the clusters are recalculated after clearing the abbreviations",
-                        "type": "boolean",
+                        "description": "If present, indicates the number of allowed edit distances between names to be considered in the same cluster",
+                        "type": "integer",
                         "required": false
                     }
                 ],
@@ -258,8 +262,8 @@
                     {
                         "name": "recalculate",
                         "in": "query",
-                        "description": "If present, the clusters are recalculated after updating the ignore tokens",
-                        "type": "boolean",
+                        "description": "If present, indicates the number of allowed edit distances between names to be considered in the same cluster",
+                        "type": "integer",
                         "required": false
                     }
                 ],
@@ -284,8 +288,8 @@
                     {
                         "name": "recalculate",
                         "in": "query",
-                        "description": "If present, the clusters are recalculated after clearing the ignored list",
-                        "type": "boolean",
+                        "description": "If present, indicates the number of allowed edit distances between names to be considered in the same cluster",
+                        "type": "integer",
                         "required": false
                     }
                 ],
@@ -426,9 +430,49 @@
                     }
                 }
             }
+        },
+        "/nameset/{id}/canon": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "The sequential number of the name set",
+                    "type": "integer",
+                    "required": true
+                }
+            ],
+            "get": {
+                "description": "Returns the canon/variant pairs for the current name set",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Canon"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Name set or cluster not found"
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "Canon": {
+            "properties": {
+                "canon": {
+                    "type": "string",
+                    "description": "The canonical representation of the name"
+                },
+                "variant": {
+                    "type": "string",
+                    "description": "The original version of the name"
+                }
+            }
+        },
         "Link": {
             "properties": {
                 "href": {
