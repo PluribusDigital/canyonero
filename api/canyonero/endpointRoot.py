@@ -1,15 +1,15 @@
+from flask import request
 from flask_restful import Resource
-import json
 
 class Root(Resource):
     """ Return the list of available top-level endpoint
     """
     def get(self):
         links = [
-            {'Links': 
-             {'href': '/nameset/',
+            {'link': 
+             {'href': request.base_url + 'nameset/',
               'rel': 'collection',
               'title': 'Name Sets',
-              'type': 'text/json'}
+              'type': 'application/json'}
              }]
-        return json.dumps(links)
+        return links
