@@ -38,6 +38,11 @@ class TestDataContext(unittest.TestCase):
         ctxt = DataContext()
         self.assertEqual('A new title', ctxt[ID].title)
 
+    def testSet(self):
+        ns = NameSet('Testing', ['a', 'b', 'c'])
+        self.target[ns.id] = ns
+        self.assertEqual(2, len(self.target))
+
     def testDelete(self):
         del self.target[ID]
         self.assertEqual(0, len(self.target))

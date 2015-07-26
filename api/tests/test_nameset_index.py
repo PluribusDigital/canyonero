@@ -52,14 +52,29 @@ class TestNameSetIndex(unittest.TestCase):
                               content_type='application/json')
 
         self.assertEqual(201, rv.status_code)
-        self.assertEqual(b"2", rv.data)
+        result = json.loads(rv.data.decode('utf-8'))
+        self.assertIn('link', result)
+        self.assertIn('href', result['link'])
+        self.assertIn('id', result)
 
-        entry = self.dataContext[1]
+        entry = self.dataContext[result['id']]
         self.assertEqual(2, len(entry.clusters))
 
     def test_post_name_set(self):
-        rv = self.target.post(self.url, data={'a': '1'})
+        ns = NameSet('Bands', self.names())
+        data = json.dumps(ns, cls=ModelEncoder)
+
+        rv = self.target.post(self.url, data=data, 
+                              content_type='application/json')
+
         self.assertEqual(201, rv.status_code)
+        result = json.loads(rv.data.decode('utf-8'))
+        self.assertIn('link', result)
+        self.assertIn('href', result['link'])
+        self.assertIn('id', result)
+
+        entry = self.dataContext[result['id']]
+        self.assertEqual(2, len(entry.clusters))
 
     def test_post_bad(self):
         rv = self.target.post(self.url, data={'a': '1'})

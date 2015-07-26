@@ -20,8 +20,6 @@ class NameSet():
         ''' `title` is the name of this set of data. (Artists, Manufacturers)
         `names` is an array of strings that need to be processed
         '''
-        self.lemmatizer = nltk.WordNetLemmatizer() 
-        
         self.abbrev = self._defaultAbbrev()
         self.ignore = self._defaultIgnore()
         self.charTranslate = self._defaultCharTranslate()
@@ -114,6 +112,10 @@ class NameSet():
         b = unicodedata.normalize('NFKD', s.lower())
         s = b.translate(self.charTranslate)
 
+        # it is in the ignore list
+        if s in self.ignore:
+            return ''
+
         # spell check
 
         # expand characters
@@ -134,8 +136,7 @@ class NameSet():
         Returns a list of normalized, tokenized, lemmata.
         """
         return [self._normalize(token) 
-                for token in nltk.wordpunct_tokenize(words) 
-                if token not in self.ignore]
+                for token in nltk.wordpunct_tokenize(words)]
 
     def _makeKey(self, words):
         """ Creates the key from a set of words
@@ -167,6 +168,8 @@ class NameSet():
         if len(self._names) == 0:
             return
 
+        self.lemmatizer = nltk.WordNetLemmatizer() 
+        
         # Map to grouped key-value pairs
         print("  Creating grouped key-value pairs")
         gkv = defaultdict(list)
