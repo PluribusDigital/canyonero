@@ -8,11 +8,11 @@ import pickle
 
 DATAPATH = os.path.dirname(__file__)
 
-_cache = []
+_cache = None
 
 def cache():
     global _cache
-    if not _cache:
+    if _cache == None:
         reset()
     return _cache
 
@@ -35,16 +35,12 @@ class DataContext():
         return item in cache()
 
     def __len__(self):
-        n = 0
-        for nameSet in cache():
-            if nameSet:
-                n += 1
-        return n
+        return len(cache())
 
     def __iter__(self):
-        for nameSet in cache():
-            if nameSet:
-                yield nameSet
+        c = cache() # verify it is loaded
+        for k in c:
+            yield c[k]
 
     def __getitem__(self, key):
         return cache()[key]
@@ -54,7 +50,7 @@ class DataContext():
         # then save
 
     def __delitem__(self, key):
-        cache()[key] = None
+        del cache()[key]
         # then save
 
     # -------------------------------------------------------------------------

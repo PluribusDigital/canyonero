@@ -1,6 +1,8 @@
 import unittest
 from canyonero.nameSet import *
 
+ID = 'a09W244fRLG+RI3uHDBOtw=='
+
 class TestDataContext(unittest.TestCase):
     def setUp(self):
         self.target = DataContext()
@@ -24,21 +26,20 @@ class TestDataContext(unittest.TestCase):
         self.assertEqual(1, count)
 
     def testGet(self):
-        ns = self.target[0]
+        ns = self.target[ID]
         self.assertIsInstance(ns, NameSet)
 
     def testUpdate(self):
-        ns = self.target[0]
+        ns = self.target[ID]
         self.assertIsInstance(ns, NameSet)
         ns.title = 'A new title'
-        self.target[0] = ns
+        self.target[ID] = ns
         
         ctxt = DataContext()
-        self.assertEqual('A new title', ctxt[0].title)
+        self.assertEqual('A new title', ctxt[ID].title)
 
     def testDelete(self):
-        del self.target[0]
-        self.assertIsNone(self.target[0])
+        del self.target[ID]
         self.assertEqual(0, len(self.target))
 
 if __name__ == '__main__':

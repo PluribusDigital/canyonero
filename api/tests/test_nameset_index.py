@@ -3,6 +3,8 @@ import canyonero
 import json
 from canyonero.nameSet import DataContext, NameSet, ModelEncoder
 
+ID1 = 'a09W244fRLG+RI3uHDBOtw=='
+
 class TestNameSetIndex(unittest.TestCase):
     def setUp(self):
         flaskInstance = canyonero.App()
@@ -34,7 +36,7 @@ class TestNameSetIndex(unittest.TestCase):
         self.assertEqual(1, len(result))
         self.assertIn('link', result[0])
         self.assertIn('href', result[0]['link'])
-        self.assertIn('nameset/1', result[0]['link']['href'])
+        self.assertIn(ID1, result[0]['link']['href'])
 
     def test_delete(self):
         rv = self.target.delete(self.url)

@@ -1,9 +1,16 @@
 import unicodedata
 import sys
-from collections import defaultdict
 import nltk
+import uuid
+import binascii
+from collections import defaultdict
 from canyonero.analysis import *
 from canyonero.nameSet import *
+
+def generateID():
+    id = uuid.uuid4()
+    asString = binascii.b2a_base64(id.bytes).strip()
+    return asString.decode('utf-8')
 
 class NameSet():
     """ The organizing structure for determining the canonical \
@@ -14,14 +21,20 @@ class NameSet():
         `names` is an array of strings that need to be processed
         '''
         self.lemmatizer = nltk.WordNetLemmatizer() 
+        
         self.abbrev = self._defaultAbbrev()
         self.ignore = self._defaultIgnore()
         self.charTranslate = self._defaultCharTranslate()
         self.charExpansion = self._defaultCharExpansion()
-        self._names = []
+
         self.names = names
         self.title = title
-        self.clusters = {}
+
+        self.id = generateID()
+
+    # -------------------------------------------------------------------------
+    # ID
+    # -------------------------------------------------------------------------
 
     #--------------------------------------------------------------------------
     # Default normalizing lists
