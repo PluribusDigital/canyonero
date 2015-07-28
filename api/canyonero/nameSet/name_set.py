@@ -27,6 +27,7 @@ class NameSet():
 
         self.names = names
         self.title = title
+        self.threshold = 2
 
         self.id = generateID()
 
@@ -156,6 +157,14 @@ class NameSet():
         self._names = list(set(value))
         self.clusters = {}
 
+    @property
+    def threshold(self):
+        return getattr(self, '_threshold', 2)
+
+    @threshold.setter
+    def threshold(self, value):
+        self._threshold = value
+
     #--------------------------------------------------------------------------
     # Main Methods
     #--------------------------------------------------------------------------
@@ -165,17 +174,20 @@ class NameSet():
         '''
         # reset
         self.clusters = {}
+
+        # no names, no work
         if len(self._names) == 0:
             return
 
         self.lemmatizer = nltk.WordNetLemmatizer() 
         
         # Map to grouped key-value pairs
-        print("  Creating grouped key-value pairs")
+        print("  Creating grouped key-value pairs", end=' ')
         gkv = defaultdict(list)
         for v in sorted(self._names):
             k = self._makeKey(v)
             gkv[k].append(v)
+        print(len(gkv))
 
         # Build a BK-Tree
         print("  Building B-K Tree")
@@ -187,10 +199,10 @@ class NameSet():
         keys = sorted(gkv)
 
         # Build the clusters
-        print("  Build the clusters from the B-K Tree")
+        print("  Build the clusters from the B-K Tree", end=' ')
         for k in keys:
             relatedKeys = []
-            tree.search(k, 2, relatedKeys)
+            tree.search(k, self.threshold, relatedKeys)
             
             cluster = NameCluster(k)
             for k1 in relatedKeys:
@@ -202,3 +214,4 @@ class NameSet():
             cluster.onComplete()
             if cluster.variations:
                 self.clusters[k] = cluster
+        print(len(self.clusters))

@@ -21,8 +21,7 @@ class TestNameSetDetail(unittest.TestCase):
     # -------------------------------------------------------------------------
 
     def toNameSet(self, rv):
-        result = json.loads(rv.data.decode('utf-8'))
-        return None
+        return ModelEncoder.decode(rv.data.decode('utf-8'))
 
     # -------------------------------------------------------------------------
     # Tests
@@ -34,10 +33,10 @@ class TestNameSetDetail(unittest.TestCase):
 
         ns = self.toNameSet(rv)
         self.assertEqual('Manufacturers', ns.title)
-        self.assertEqual(561, len(ns.names))
-        self.assertEqual(61, len(ns.clusters))
-        self.assertEqual(40, len(ns.ignore))
-        self.assertEqual(40, len(ns.abbrev))
+        self.assertEqual(1254, len(ns.names))
+        self.assertEqual(807, len(ns.clusters))
+        self.assertEqual(31, len(ns.ignore))
+        self.assertEqual(4, len(ns.abbrev))
 
     def test_get_bad(self):
         rv = self.target.get(self.urlBadNameSet)
@@ -49,10 +48,10 @@ class TestNameSetDetail(unittest.TestCase):
 
         ns = self.toNameSet(rv)
         self.assertEqual('Manufacturers', ns.title)
-        self.assertEqual(561, len(ns.names))
-        self.assertEqual(161, len(ns.clusters))
-        self.assertEqual(40, len(ns.ignore))
-        self.assertEqual(40, len(ns.abbrev))
+        self.assertEqual(1254, len(ns.names))
+        self.assertEqual(873, len(ns.clusters))
+        self.assertEqual(31, len(ns.ignore))
+        self.assertEqual(4, len(ns.abbrev))
 
     def test_delete(self):
         rv = self.target.delete(self.url)

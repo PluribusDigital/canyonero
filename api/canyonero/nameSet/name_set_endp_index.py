@@ -50,17 +50,7 @@ class NameSetEndpointIndex(Resource):
 
     def parseFromNameset(self, s):
         try:
-            o = json.loads(s)
-            if 'names' not in o:
-                return None
-
-            title = o['title'] if 'abbrev' in o else self.defaultTitle()
-            ns = NameSet(title, o['names'])
-            if 'abbrev' in o:
-                ns.abbrev = o['abbrev']
-            if 'ignore' in o:
-                ns.ignore = o['ignore']
-            return ns
+            return ModelEncoder.decode(s)
         except:
             err = sys.exc_info()[0]
             print(err)        
