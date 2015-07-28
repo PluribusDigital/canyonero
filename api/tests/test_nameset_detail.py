@@ -68,8 +68,8 @@ class TestNameSetDetail(unittest.TestCase):
         self.assertEqual(405, rv.status_code)
 
     def test_put(self):
-        data = json.dumps('{}')
-        rv = self.target.put(self.url, data=data, 
+        rv = self.target.get(self.url)
+        rv = self.target.put(self.url, data=rv.data, 
                               content_type='application/json')
 
         self.assertEqual(200, rv.status_code)

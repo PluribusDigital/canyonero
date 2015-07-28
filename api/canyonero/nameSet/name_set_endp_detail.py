@@ -1,5 +1,4 @@
 import sys
-import datetime
 import json
 from flask import request, make_response
 from flask_restful import abort, Resource
@@ -30,6 +29,28 @@ class NameSetEndpointDetail(Resource):
 
         data = json.dumps(nameSet, cls=ModelEncoder)
         return make_response(data, 200, {})
+
+    def put(self, id):
+        """Fully updates the nameset"""
+        context = DataContext()
+        if id not in context:
+            abort(404, message="'{}' doesn't exist".format(id))
+
+        try:
+            s = request.data.decode('utf-8') if request.data else '{}'
+            nameSet = ModelEncoder.decode(s)
+        except:
+            err = sys.exc_info()[0]
+            print(err)
+            abort(400, message="Name set not in the correct format")
+
+        if not nameSet:
+            abort(400, message="Name set not in the correct format")
+        
+        nameSet.buildClusters()
+        context[id] = nameSet
+        return '', 200
+
 
     def delete(self, id):
         """Deletes the name set"""
