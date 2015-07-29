@@ -4,9 +4,9 @@ import json
 
 class Test_RootEndpoint(unittest.TestCase):
     def setUp(self):
-        flaskInstance = canyonero.App()
-        self.target = flaskInstance.app.test_client()
-        self.url = '/'
+        a = canyonero.App()
+        self.target = a.app.test_client()
+        self.url = a.absoluteUrl('/')
 
     def test_get(self):
         rv = self.target.get(self.url)

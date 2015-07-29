@@ -5,9 +5,9 @@ from canyonero.nameSet import DataContext, NameSet, ModelEncoder
 
 class TestNameSetDetail(unittest.TestCase):
     def setUp(self):
-        flaskInstance = canyonero.App()
-        self.target = flaskInstance.app.test_client()
-        self.baseUrl = '/nameset/'
+        a = canyonero.App()
+        self.target = a.app.test_client()
+        self.baseUrl = a.absoluteUrl('/nameset/')
         self.url = self.baseUrl + 'a09W244fRLG+RI3uHDBOtw=='
         self.urlBadNameSet = self.baseUrl + 'fail'
         self.dataContext = DataContext()

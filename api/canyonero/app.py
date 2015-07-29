@@ -8,7 +8,7 @@ class App(object):
     """Represents the Flask App"""
     def __init__(self):
         self.app = Flask(__name__)
-        self.api = Api(self.app)
+        self.api = Api(self.app, prefix='/api/v1')
 
         self.api.add_resource(canyonero.Root, '/')
         self.api.add_resource(canyonero.NameSetEndpointIndex, '/nameset')
@@ -18,4 +18,7 @@ class App(object):
     def run(self, debug):
         self.app.run(debug=debug)
 
+    def absoluteUrl(self, relative):
+        f = "{0}{1}" if relative[0] == '/' else "{0}/{1}"
+        return f.format(self.api.prefix, relative)
 

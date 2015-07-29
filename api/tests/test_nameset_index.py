@@ -7,9 +7,9 @@ ID1 = 'a09W244fRLG+RI3uHDBOtw=='
 
 class TestNameSetIndex(unittest.TestCase):
     def setUp(self):
-        flaskInstance = canyonero.App()
-        self.target = flaskInstance.app.test_client()
-        self.url = '/nameset'
+        a = canyonero.App()
+        self.target = a.app.test_client()
+        self.url = a.absoluteUrl('/nameset')
         self.dataContext = DataContext()
         self.dataContext.beginTransaction()
 

@@ -4,11 +4,11 @@ import json
 
 class TestNameSetCanon(unittest.TestCase):
     def setUp(self):
-        flaskInstance = canyonero.App()
-        self.target = flaskInstance.app.test_client()
+        a = canyonero.App()
+        self.target = a.app.test_client()
         urlFormat = '/nameset/{0}/canon'
-        self.url = urlFormat.format('a09W244fRLG+RI3uHDBOtw==')
-        self.urlBadNameSet = urlFormat.format('failure')
+        self.url = a.absoluteUrl(urlFormat.format('a09W244fRLG+RI3uHDBOtw=='))
+        self.urlBadNameSet = a.absoluteUrl(urlFormat.format('failure'))
 
     # -------------------------------------------------------------------------
     # Tests
