@@ -15,5 +15,8 @@ class NameCluster():
         for i in range(0, count):
             if len(self.variations[i]) > len(self.canon):
                 self.canon = self.variations[i]
+            if self.variations[i].swapcase() < self.canon.swapcase(): # a < A
+                self.canon = self.variations[i]
+
 
 

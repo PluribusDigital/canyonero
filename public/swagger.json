@@ -72,8 +72,8 @@
                 {
                     "name": "id",
                     "in": "path",
-                    "description": "The sequential number of the name set",
-                    "type": "integer",
+                    "description": "The serial number of the name set",
+                    "type": "string",
                     "required": true
                 }
             ],
@@ -142,8 +142,8 @@
                 {
                     "name": "id",
                     "in": "path",
-                    "description": "The sequential number of the name set",
-                    "type": "integer",
+                    "description": "The serial number of the name set",
+                    "type": "string",
                     "required": true
                 }
             ],
@@ -222,8 +222,8 @@
                 {
                     "name": "id",
                     "in": "path",
-                    "description": "The sequential number of the name set",
-                    "type": "integer",
+                    "description": "The serial number of the name set",
+                    "type": "string",
                     "required": true
                 }
             ],
@@ -311,8 +311,8 @@
                 {
                     "name": "id",
                     "in": "path",
-                    "description": "The sequential number of the name set",
-                    "type": "integer",
+                    "description": "The serial number of the name set",
+                    "type": "string",
                     "required": true
                 }
             ],
@@ -370,8 +370,8 @@
                 {
                     "name": "id",
                     "in": "path",
-                    "description": "The sequential number of the name set",
-                    "type": "integer",
+                    "description": "The serial number of the name set",
+                    "type": "string",
                     "required": true
                 },
                 {
@@ -436,8 +436,8 @@
                 {
                     "name": "id",
                     "in": "path",
-                    "description": "The sequential number of the name set",
-                    "type": "integer",
+                    "description": "The serial number of the name set",
+                    "type": "string",
                     "required": true
                 }
             ],
