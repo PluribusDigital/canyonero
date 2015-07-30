@@ -13,6 +13,7 @@ class App(object):
         self.api.add_resource(canyonero.Root, '/')
         self.api.add_resource(canyonero.NameSetEndpointIndex, '/nameset')
         self.api.add_resource(canyonero.NameSetEndpointDetail, '/nameset/<string:id>')
+        self.api.add_resource(canyonero.NameSetEndpointAbbrev, '/nameset/<string:id>/abbrev')
         self.api.add_resource(canyonero.NameSetEndpointCanon, '/nameset/<string:id>/canon')
 
     def run(self, debug):
