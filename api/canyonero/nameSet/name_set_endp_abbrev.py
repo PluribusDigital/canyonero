@@ -1,29 +1,11 @@
 import json
-from flask import request, make_response
+from flask import request
 from flask_restful import abort, Resource
-from flask_restful.reqparse import RequestParser
 from canyonero.nameSet import *
 
 class NameSetEndpointAbbrev(Resource):
     """ Provides the endpoint for the abbreviations for one name set
     """
-    # -------------------------------------------------------------------------
-    # Helpers
-    # -------------------------------------------------------------------------
-
-    def finish(self, nameSet):
-        responseCode = 205
-
-        parser = RequestParser()
-        parser.add_argument('recalculate', type=int, default=-1)
-        args = parser.parse_args()
-        if args['recalculate'] != -1:
-            nameSet.threshold = args['recalculate']
-            nameSet.buildClusters()
-            responseCode = 204
-
-        return '', responseCode
-
     # -------------------------------------------------------------------------
     # HTTP Methods
     # -------------------------------------------------------------------------
@@ -61,7 +43,7 @@ class NameSetEndpointAbbrev(Resource):
 
         nameSet.abbrev = abbrev
 
-        return self.finish(nameSet)
+        return '', 204 if NameSetEndpointDetail.checkRecalc(nameSet) else 205
 
     def delete(self, id):
         """Clears all abbreviations from the name set"""
@@ -72,5 +54,5 @@ class NameSetEndpointAbbrev(Resource):
         nameSet = context[id]
         nameSet.abbrev = {}
 
-        return self.finish(nameSet)
+        return '', 204 if NameSetEndpointDetail.checkRecalc(nameSet) else 205
 

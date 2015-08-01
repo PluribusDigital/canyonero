@@ -11,6 +11,11 @@
     <OutputPath>.</OutputPath>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <CommandLineArguments />
+    <InterpreterPath />
+    <InterpreterArguments />
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -22,6 +27,7 @@
     <Compile Include="canyonero\nameSet\data_context.py" />
     <Compile Include="canyonero\nameSet\name_set_endp_canon.py" />
     <Compile Include="canyonero\nameSet\name_set_endp_detail.py" />
+    <Compile Include="canyonero\nameSet\name_set_endp_ignore.py" />
     <Compile Include="canyonero\nameSet\name_set_endp_index.py">
       <SubType>Code</SubType>
     </Compile>
@@ -33,6 +39,7 @@
     <Compile Include="tests\test_nameset_abbrev.py" />
     <Compile Include="tests\test_nameset_canon.py" />
     <Compile Include="tests\test_nameset_detail.py" />
+    <Compile Include="tests\test_nameset_ignore.py" />
     <Compile Include="tests\test_nameset_index.py">
       <SubType>Code</SubType>
     </Compile>

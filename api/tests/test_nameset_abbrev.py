@@ -27,8 +27,8 @@ class TestNameSetAbbrev(unittest.TestCase):
         rv = self.target.get(self.url)
         self.assertEqual(200, rv.status_code)
 
-        canon = json.loads(rv.data.decode('utf-8'))
-        self.assertEqual(4, len(canon))
+        abbrev = json.loads(rv.data.decode('utf-8'))
+        self.assertEqual(4, len(abbrev))
 
     def test_get_bad(self):
         rv = self.target.get(self.urlBadNameSet)

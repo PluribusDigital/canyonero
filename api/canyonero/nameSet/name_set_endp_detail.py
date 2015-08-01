@@ -9,6 +9,23 @@ class NameSetEndpointDetail(Resource):
     """ Provides the endpoint for one name set
     """
     # -------------------------------------------------------------------------
+    # Helpers
+    # -------------------------------------------------------------------------
+    @classmethod
+    def checkRecalc(cls, nameSet):
+        calc = False
+
+        parser = RequestParser()
+        parser.add_argument('recalculate', type=int, default=-1)
+        args = parser.parse_args()
+        if args['recalculate'] != -1:
+            nameSet.threshold = args['recalculate']
+            nameSet.buildClusters()
+            calc = True
+
+        return calc
+
+    # -------------------------------------------------------------------------
     # HTTP Methods
     # -------------------------------------------------------------------------
 
@@ -20,12 +37,7 @@ class NameSetEndpointDetail(Resource):
 
         nameSet = context[id]
         
-        parser = RequestParser()
-        parser.add_argument('recalculate', type=int, default=-1)
-        args = parser.parse_args()
-        if args['recalculate'] != -1:
-            nameSet.threshold = args['recalculate']
-            nameSet.buildClusters()
+        self.checkRecalc(nameSet)
 
         data = json.dumps(nameSet, cls=ModelEncoder)
         return make_response(data, 200, {})
