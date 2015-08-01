@@ -16,7 +16,7 @@ class NameSetEndpointDetail(Resource):
         calc = False
 
         parser = RequestParser()
-        parser.add_argument('recalculate', type=int, default=-1)
+        parser.add_argument('recalculate', type=int, default=-1, location='args')
         args = parser.parse_args()
         if args['recalculate'] != -1:
             nameSet.threshold = args['recalculate']
