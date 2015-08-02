@@ -137,7 +137,7 @@
                 }
             }
         },
-        "/nameset/{id}/abbrev/": {
+        "/nameset/{id}/abbrev": {
             "parameters": [
                 {
                     "name": "id",
@@ -217,7 +217,7 @@
                 }
             }
         },
-        "/nameset/{id}/ignore/": {
+        "/nameset/{id}/ignore": {
             "parameters": [
                 {
                     "name": "id",
@@ -306,7 +306,7 @@
                 }
             }
         },
-        "/nameset/{id}/cluster/": {
+        "/nameset/{id}/cluster": {
             "parameters": [
                 {
                     "name": "id",
@@ -372,7 +372,7 @@
                 }
             }
         },
-        "/nameset/{id}/cluster/{key}/": {
+        "/nameset/{id}/cluster/{key}": {
             "parameters": [
                 {
                     "name": "id",

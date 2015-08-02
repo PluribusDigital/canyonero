@@ -16,6 +16,7 @@ class App(object):
         self.api.add_resource(canyonero.NameSetEndpointAbbrev, '/nameset/<string:id>/abbrev')
         self.api.add_resource(canyonero.NameSetEndpointIgnore, '/nameset/<string:id>/ignore')
         self.api.add_resource(canyonero.NameSetEndpointCanon, '/nameset/<string:id>/canon')
+        self.api.add_resource(canyonero.ClusterEndpointIndex, '/nameset/<string:id>/cluster')
 
     def run(self, debug):
         self.app.run(debug=debug)

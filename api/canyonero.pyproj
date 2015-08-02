@@ -24,6 +24,7 @@
     <Compile Include="canyonero\endpointRoot.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="canyonero\nameSet\cluster_endp_index.py" />
     <Compile Include="canyonero\nameSet\data_context.py" />
     <Compile Include="canyonero\nameSet\name_set_endp_canon.py" />
     <Compile Include="canyonero\nameSet\name_set_endp_detail.py" />
@@ -43,6 +44,7 @@
     <Compile Include="tests\test_nameset_index.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tests\test_name_cluster_index.py" />
     <Compile Include="tests\test_root.py" />
     <Compile Include="tests\__init__.py" />
     <Compile Include="canyonero\nameSet\encoder.py" />
