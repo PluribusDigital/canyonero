@@ -57,7 +57,7 @@
                     "201": {
                         "description": "Name set successfully created",
                         "schema": {
-                            "type": "integer",
+                            "type": "string",
                             "description": "The ID of the newly created name set"
                         }
                     },
@@ -348,19 +348,26 @@
                     {
                         "name": "body",
                         "in": "body",
-                        "description": "The new cluster to create",
+                        "description": "The name to seed the cluster with",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/NameCluster"
+                            "type": "string"
                         }
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "OK"
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string",
+                            "description": "The ID of the newly created cluster"
+                        }
                     },
                     "404": {
-                        "description": "Name set, cluster or variant not found"
+                        "description": "Name set not found"
+                    },
+                    "409": {
+                        "description": "The cluster already exists"
                     }
                 }
             }
@@ -411,6 +418,13 @@
                         "in": "query",
                         "description": "Identifies which variant is being acted upon",
                         "type": "integer",
+                        "required": false
+                    },
+                    {
+                        "name": "newClusterFromVariant",
+                        "in": "query",
+                        "description": "Create a new cluster from the variant and transfer it out",
+                        "type": "string",
                         "required": false
                     },
                     {
