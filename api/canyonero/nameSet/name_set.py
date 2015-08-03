@@ -139,7 +139,7 @@ class NameSet():
         return [self._normalize(token) 
                 for token in nltk.wordpunct_tokenize(words)]
 
-    def _makeKey(self, words):
+    def makeClusterKey(self, words):
         """ Creates the key from a set of words
         """
         return "".join(self._tokenize(words))
@@ -185,7 +185,7 @@ class NameSet():
         print("  Creating grouped key-value pairs", end=' ')
         gkv = defaultdict(list)
         for v in sorted(self._names):
-            k = self._makeKey(v)
+            k = self.makeClusterKey(v)
             gkv[k].append(v)
         print(len(gkv))
 

@@ -53,7 +53,7 @@ class TestNameClusterIndex(unittest.TestCase):
         self.assertEqual(405, rv.status_code)
 
     def test_post(self):
-        data = json.dumps('El Em_En.Oh-Pee!')
+        data = json.dumps('El Em*En.Oh-Pee!')
         rv = self.target.post(self.url, data=data, 
                               content_type='application/json')
 
@@ -64,9 +64,13 @@ class TestNameClusterIndex(unittest.TestCase):
         self.assertIn('elemenohpee', result['link']['href'])
         self.assertIn('key', result)
 
-        entry = self.dataContext[result[ID1]][result['key']]
-        self.assertEqual('El Em_En.Oh-Pee!', entry.canon)
-        self.assertEqual(false, entry.validated)
+        ns = self.dataContext[ID1]
+        self.assertEqual(808, len(ns.clusters))
+        self.assertEqual(1255, len(ns.names))
+
+        entry = ns.clusters[result['key']]
+        self.assertEqual('El Em*En.Oh-Pee!', entry.canon)
+        self.assertEqual(False, entry.validated)
         self.assertEqual(1, len(entry.variations))
 
     def test_post_duplicate(self):

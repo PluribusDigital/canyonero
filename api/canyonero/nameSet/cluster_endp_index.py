@@ -27,8 +27,20 @@ class ClusterEndpointIndex(Resource):
         parser = RequestParser()
         parser.add_argument('all', type=bool, location='args')
         args = parser.parse_args()
-        print(args)
         return args['all'] != None
+
+    def parse(self, encoded):
+        if not encoded:
+            return None
+        
+        s = encoded.decode('utf-8')
+        try:
+            return json.loads(s)
+        except:
+            err = sys.exc_info()[0]
+            print(err)
+
+        return None
 
     # -------------------------------------------------------------------------
     # HTTP Methods
@@ -55,4 +67,27 @@ class ClusterEndpointIndex(Resource):
         if id not in context:
             abort(404, message="'{}' doesn't exist".format(id))
 
-        return '', 400
+        # extract the payload
+        variant = self.parse(request.data)
+        if not variant:
+            abort(400, message="Not in the correct format")
+
+        # see if it fits
+        nameSet = context[id]
+        key = nameSet.makeClusterKey(variant)
+        if key in nameSet.clusters:
+            abort(409, message="'{}' already exists as a cluster".format(variant))
+
+        # build the cluster
+        cluster = NameCluster(key)
+        cluster.variations.append(variant)
+        cluster.onComplete()
+        cluster.validated = False
+
+        nameSet.clusters[key] = cluster
+        nameSet.names.append(variant)
+
+        # return the ID and the link to this name set
+        result = linkBuilder(request.base_url)(cluster)
+        result.update({'key': key})
+        return result, 201
