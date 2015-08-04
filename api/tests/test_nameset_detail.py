@@ -8,7 +8,7 @@ class TestNameSetDetail(unittest.TestCase):
         a = canyonero.App()
         self.target = a.app.test_client()
         self.baseUrl = a.absoluteUrl('/nameset/')
-        self.url = self.baseUrl + 'a09W244fRLG+RI3uHDBOtw=='
+        self.url = self.baseUrl + 'XTfIPZmASrK89OeK9phOhQ'
         self.urlBadNameSet = self.baseUrl + 'fail'
         self.dataContext = DataContext()
         self.dataContext.beginTransaction()

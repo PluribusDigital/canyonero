@@ -409,21 +409,21 @@
                     {
                         "name": "transferToCluster",
                         "in": "query",
-                        "description": "Identifies the destination for a variation",
+                        "description": "Identifies the destination for a variation. `variantToTransfer` is also required.",
                         "type": "string",
                         "required": false
                     },
                     {
                         "name": "variantToTransfer",
                         "in": "query",
-                        "description": "Identifies which variant is being acted upon",
+                        "description": "Identifies the variant being transferred. `transferToCluster` is also required.",
                         "type": "integer",
                         "required": false
                     },
                     {
                         "name": "newClusterFromVariant",
                         "in": "query",
-                        "description": "Create a new cluster from the variant and transfer it out",
+                        "description": "Create a new cluster from the variant and transfer it out.",
                         "type": "string",
                         "required": false
                     },
@@ -441,6 +441,9 @@
                     },
                     "404": {
                         "description": "Name set, cluster or variant not found"
+                    },
+                    "409": {
+                        "description": "The cluster already exists"
                     }
                 }
             }

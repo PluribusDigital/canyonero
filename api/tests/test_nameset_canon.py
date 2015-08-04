@@ -7,7 +7,7 @@ class TestNameSetCanon(unittest.TestCase):
         a = canyonero.App()
         self.target = a.app.test_client()
         urlFormat = '/nameset/{0}/canon'
-        self.url = a.absoluteUrl(urlFormat.format('a09W244fRLG+RI3uHDBOtw=='))
+        self.url = a.absoluteUrl(urlFormat.format('XTfIPZmASrK89OeK9phOhQ'))
         self.urlBadNameSet = a.absoluteUrl(urlFormat.format('failure'))
 
     # -------------------------------------------------------------------------

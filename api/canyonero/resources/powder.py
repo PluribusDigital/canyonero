@@ -32,7 +32,7 @@ with open(os.path.join(OUTPATH, 'db.p'), 'rb') as f:
     db = pickle.load(f)
 
 for k in db:
-    db[k].buildClusters()
+    db[k].id = generateID()
 
-#with open(os.path.join(OUTPATH, 'db.p'), 'wb') as f:
-#    pickle.dump({x.id: x for x in db.values()}, f)
+with open(os.path.join(OUTPATH, 'db.p'), 'wb') as f:
+    pickle.dump({x.id: x for x in db.values()}, f)

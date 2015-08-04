@@ -8,9 +8,14 @@ from canyonero.analysis import *
 from canyonero.nameSet import *
 
 def generateID():
+    """Generates and ID that will be unique and safe to include in a URL"""
     id = uuid.uuid4()
-    asString = binascii.b2a_base64(id.bytes).strip()
-    return asString.decode('utf-8')
+    bytes = binascii.b2a_base64(id.bytes)
+    s = bytes.decode('utf-8').strip()
+    s = s.strip('=')
+    s = s.replace('+', '-')
+    s = s.replace('/', '_')
+    return s
 
 class NameSet():
     """ The organizing structure for determining the canonical \

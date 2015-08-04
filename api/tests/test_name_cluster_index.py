@@ -3,7 +3,7 @@ import canyonero
 import json
 from canyonero.nameSet import DataContext, ModelEncoder, NameCluster
 
-ID1 = 'a09W244fRLG+RI3uHDBOtw=='
+ID1 = 'XTfIPZmASrK89OeK9phOhQ'
 
 class TestNameClusterIndex(unittest.TestCase):
     def setUp(self):
