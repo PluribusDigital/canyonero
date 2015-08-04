@@ -50,7 +50,7 @@ class NameSetEndpointDetail(Resource):
 
         try:
             s = request.data.decode('utf-8') if request.data else '{}'
-            nameSet = ModelEncoder.decode(s)
+            nameSet = ModelEncoder.decodeNameSet(s)
         except:
             err = sys.exc_info()[0]
             print(err)
@@ -61,7 +61,7 @@ class NameSetEndpointDetail(Resource):
         
         nameSet.buildClusters()
         context[id] = nameSet
-        return '', 200
+        return '', 204
 
 
     def delete(self, id):

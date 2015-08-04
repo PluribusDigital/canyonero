@@ -436,8 +436,14 @@
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "OK"
+                    "204": {
+                        "description": "The update was successful"
+                    },
+                    "205": {
+                        "description": "The transfer was successful, the client must refresh it's information"
+                    },
+                    "400": {
+                        "description": "Request not in the correct format"
                     },
                     "404": {
                         "description": "Name set, cluster or variant not found"

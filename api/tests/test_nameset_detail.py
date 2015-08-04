@@ -21,7 +21,7 @@ class TestNameSetDetail(unittest.TestCase):
     # -------------------------------------------------------------------------
 
     def toNameSet(self, rv):
-        return ModelEncoder.decode(rv.data.decode('utf-8'))
+        return ModelEncoder.decodeNameSet(rv.data.decode('utf-8'))
 
     # -------------------------------------------------------------------------
     # Tests
@@ -72,7 +72,7 @@ class TestNameSetDetail(unittest.TestCase):
         rv = self.target.put(self.url, data=rv.data, 
                               content_type='application/json')
 
-        self.assertEqual(200, rv.status_code)
+        self.assertEqual(204, rv.status_code)
 
     def test_put_bad_format(self):
         rv = self.target.put(self.url, data={'a': '1'})

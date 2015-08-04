@@ -44,6 +44,7 @@
     <Compile Include="tests\test_nameset_index.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tests\test_name_cluster_detail.py" />
     <Compile Include="tests\test_name_cluster_index.py" />
     <Compile Include="tests\test_root.py" />
     <Compile Include="tests\__init__.py" />

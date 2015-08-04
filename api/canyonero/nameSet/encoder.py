@@ -23,7 +23,7 @@ class ModelEncoder(json.JSONEncoder):
         return json.JSONEncoder.default(self, obj)
 
     @classmethod
-    def decode(cls, s):
+    def decodeNameSet(cls, s):
         o = json.loads(s)
         if 'names' not in o:
             return None
@@ -39,3 +39,7 @@ class ModelEncoder(json.JSONEncoder):
         if 'threshold' in o:
             ns.threshold = o['threshold']
         return ns
+
+    @classmethod
+    def decodeCluster(cls, s):
+        return None

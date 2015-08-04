@@ -50,7 +50,7 @@ class NameSetEndpointIndex(Resource):
 
     def parseFromNameset(self, s):
         try:
-            return ModelEncoder.decode(s)
+            return ModelEncoder.decodeNameSet(s)
         except:
             err = sys.exc_info()[0]
             print(err)        
