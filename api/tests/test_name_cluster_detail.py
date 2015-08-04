@@ -42,7 +42,7 @@ class TestNameClusterDetail(unittest.TestCase):
         self.assertEqual(200, rv.status_code)
 
         result = self.toCluster(rv)
-        self.assertEqual('Prasco, Laboratories', result.canon)
+        self.assertEqual('Actavis Pharma, Inc.', result.canon)
         self.assertEqual(CLUSTER1, result.key)
         self.assertEqual(False, result.validated)
         self.assertEqual(3, len(result.variations))

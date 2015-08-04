@@ -24,6 +24,7 @@
     <Compile Include="canyonero\endpointRoot.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="canyonero\nameSet\cluster_endp_detail.py" />
     <Compile Include="canyonero\nameSet\cluster_endp_index.py" />
     <Compile Include="canyonero\nameSet\data_context.py" />
     <Compile Include="canyonero\nameSet\name_set_endp_canon.py" />

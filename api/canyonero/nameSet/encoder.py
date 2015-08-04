@@ -42,4 +42,14 @@ class ModelEncoder(json.JSONEncoder):
 
     @classmethod
     def decodeCluster(cls, s):
-        return None
+        o = json.loads(s)
+        if 'key' not in o or 'canon' not in o:
+            return None
+
+        cluster = NameCluster(o['key'])
+        cluster.canon = o['canon']
+        if 'validated' in o:
+            cluster.validated = bool(o['validated'])
+        if 'variations' in o:
+            cluster.variations = o['variations']
+        return cluster
