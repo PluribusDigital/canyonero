@@ -103,11 +103,17 @@ class TestNameClusterDetail(unittest.TestCase):
         self.assertEqual(400, rv.status_code)
 
     def test_post_new_cluster_variant_str(self):
+        ns = self.dataContext[ID1]
+        del ns.clusters[CLUSTER2]
+
         query = self.queryNewCluster.format('Aptalis Pharma Inc.')
         rv = self.target.post(self.url + query)
         self.assertEqual(205, rv.status_code)
 
     def test_post_new_cluster_variant_int(self):
+        ns = self.dataContext[ID1]
+        del ns.clusters[CLUSTER2]
+
         query = self.queryNewCluster.format(2)
         rv = self.target.post(self.url + query)
         self.assertEqual(205, rv.status_code)
@@ -115,7 +121,7 @@ class TestNameClusterDetail(unittest.TestCase):
     def test_post_new_cluster_bad_variant_str(self):
         query = self.queryNewCluster.format('Aptalis Pharma')
         rv = self.target.post(self.url + query)
-        self.assertEqual(205, rv.status_code)
+        self.assertEqual(400, rv.status_code)
 
     def test_post_new_cluster_bad_variant_int(self):
         query = self.queryNewCluster.format(7)

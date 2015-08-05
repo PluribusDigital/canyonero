@@ -11,19 +11,62 @@ class ClusterEndpointDetail(Resource):
     # -------------------------------------------------------------------------
     # Helpers
     # -------------------------------------------------------------------------
-    @classmethod
-    def checkRecalc(cls, nameSet):
-        calc = False
 
+    def parseArgs(self):
         parser = RequestParser()
-        parser.add_argument('recalculate', type=int, default=-1, location='args')
+        parser.add_argument('variantToTransfer', location='args')
+        parser.add_argument('transferToCluster', location='args')
+        parser.add_argument('newClusterFromVariant', location='args')
+        parser.add_argument('setAsCanon', location='args')
         args = parser.parse_args()
-        if args['recalculate'] != -1:
-            nameSet.threshold = args['recalculate']
-            nameSet.buildClusters()
-            calc = True
 
-        return calc
+        operations = {
+                      'transfer': (args['variantToTransfer'] != None and 
+                                   args['transferToCluster'] != None),
+                      'new': args['newClusterFromVariant'] != None,
+                      'canon': args['setAsCanon'] != None
+                      }
+        return args, operations
+
+    # -------------------------------------------------------------------------
+    # Operations
+    # -------------------------------------------------------------------------
+
+    def getVariant(self, cluster, s):
+        try:
+            v = cluster.variations[int(s)]
+        except ValueError:
+            v = s if s in cluster.variations else None
+        except IndexError:
+            v = None
+        
+        if not v:
+            abort(400, message="Variant '{}' doesn't exist".format(s))
+        return v
+
+    def transferToCluster(self, context, nameSet, cluster, args):
+        variant = self.getVariant(cluster, args['variantToTransfer'])
+        toCluster = args['transferToCluster']
+        if toCluster not in nameSet.clusters:
+            abort(400, message="Destination cluster '{}' doesn't \
+            exist".format(toCluster))
+
+        print(variant, toCluster)
+        return '', 410
+
+    def newCluster(self, context, nameSet, cluster, args):
+        variant = self.getVariant(cluster, args['newClusterFromVariant'])
+        key = nameSet.makeClusterKey(variant)
+        if key in nameSet.clusters:
+            abort(409, message="'{}' already exists as a cluster".format(variant))
+
+        print(variant, key)
+        return '', 410
+
+    def setAsCanon(self, context, nameSet, cluster, args):
+        variant = self.getVariant(cluster, args['setAsCanon'])
+        print(variant)
+        return '', 410
 
     # -------------------------------------------------------------------------
     # HTTP Methods
@@ -57,4 +100,20 @@ class ClusterEndpointDetail(Resource):
 
         cluster = nameSet.clusters[key]
 
-        return '', 400
+        # get the args
+        args, ops = self.parseArgs()
+        validOps = sum([1 for v in ops.values() if v])
+        if validOps == 0:
+            abort(400, message="Need to specify a valid operation")
+        elif validOps > 1:
+            abort(400, message="Can only perform one operation at a time")
+
+        # route to the operation
+        if ops['transfer']:
+            return self.transferToCluster(context, nameSet, cluster, args)
+        elif ops['new']:
+            return self.newCluster(context, nameSet, cluster, args)
+        elif ops['canon']:
+            return self.setAsCanon(context, nameSet, cluster, args)
+
+        return '', 501
