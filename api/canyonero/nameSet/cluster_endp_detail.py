@@ -44,29 +44,49 @@ class ClusterEndpointDetail(Resource):
             abort(400, message="Variant '{}' doesn't exist".format(s))
         return v
 
-    def transferToCluster(self, context, nameSet, cluster, args):
+    def transferToCluster(self, nameSet, cluster, args):
         variant = self.getVariant(cluster, args['variantToTransfer'])
-        toCluster = args['transferToCluster']
-        if toCluster not in nameSet.clusters:
+        key = args['transferToCluster']
+        if key not in nameSet.clusters:
             abort(400, message="Destination cluster '{}' doesn't \
-            exist".format(toCluster))
+            exist".format(key))
 
-        print(variant, toCluster)
-        return '', 410
+        # remove from the old
+        cluster.variations.remove(variant)
+        cluster.onComplete()
 
-    def newCluster(self, context, nameSet, cluster, args):
+        # transfer to new
+        toCluster = nameSet.clusters[key]
+        toCluster.variations.append(variant)
+        toCluster.validated = False
+
+        return 205
+
+    def newCluster(self, nameSet, cluster, args):
         variant = self.getVariant(cluster, args['newClusterFromVariant'])
         key = nameSet.makeClusterKey(variant)
         if key in nameSet.clusters:
-            abort(409, message="'{}' already exists as a cluster".format(variant))
+            abort(409, 
+                  message="'{}' already exists as a cluster".format(variant))
 
-        print(variant, key)
-        return '', 410
+        # remove from the old
+        cluster.variations.remove(variant)
+        cluster.onComplete()
 
-    def setAsCanon(self, context, nameSet, cluster, args):
+        # build the cluster
+        newCluster = NameCluster(key)
+        newCluster.variations.append(variant)
+        newCluster.onComplete()
+        newCluster.validated = False
+
+        nameSet.clusters[key] = newCluster
+        return 205
+
+    def setAsCanon(self, nameSet, cluster, args):
         variant = self.getVariant(cluster, args['setAsCanon'])
-        print(variant)
-        return '', 410
+        cluster.canon = variant
+        cluster.validated = True
+        return 204
 
     # -------------------------------------------------------------------------
     # HTTP Methods
@@ -109,11 +129,15 @@ class ClusterEndpointDetail(Resource):
             abort(400, message="Can only perform one operation at a time")
 
         # route to the operation
+        status = 520
         if ops['transfer']:
-            return self.transferToCluster(context, nameSet, cluster, args)
+            status = self.transferToCluster(nameSet, cluster, args)
         elif ops['new']:
-            return self.newCluster(context, nameSet, cluster, args)
+            status = self.newCluster(nameSet, cluster, args)
         elif ops['canon']:
-            return self.setAsCanon(context, nameSet, cluster, args)
+            status = self.setAsCanon(nameSet, cluster, args)
 
-        return '', 501
+        if status > 199 and status < 300:
+            context[id] = nameSet
+
+        return '', status

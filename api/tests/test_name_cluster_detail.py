@@ -33,6 +33,39 @@ class TestNameClusterDetail(unittest.TestCase):
     def toCluster(self, rv):
         return ModelEncoder.decodeCluster(rv.data.decode('utf-8'))
 
+    def validateNewCluster(self):
+        ns = self.dataContext[ID1]
+        self.assertIn(CLUSTER2, ns.clusters)
+
+        cluster = ns.clusters[CLUSTER1]
+        self.assertEqual(cluster.canon, 'Actavis Pharma, Inc.')
+        self.assertFalse(cluster.validated)
+        self.assertEqual(2, len(cluster.variations))
+
+        cluster = ns.clusters[CLUSTER2]
+        self.assertEqual(cluster.canon, 'Aptalis Pharma Inc.')
+        self.assertFalse(cluster.validated)
+        self.assertEqual(1, len(cluster.variations))
+
+    def validateSetAsCanon(self):
+        ns = self.dataContext[ID1]
+        cluster = ns.clusters[CLUSTER1]
+        self.assertEqual(cluster.canon, 'Aptalis Pharma Inc.')
+        self.assertTrue(cluster.validated)
+        self.assertEqual(3, len(cluster.variations))
+
+    def validateTransfer(self):
+        ns = self.dataContext[ID1]
+        cluster = ns.clusters[CLUSTER1]
+        self.assertEqual(cluster.canon, 'Actavis Pharma, Inc.')
+        self.assertFalse(cluster.validated)
+        self.assertEqual(2, len(cluster.variations))
+
+        cluster = ns.clusters[CLUSTER2]
+        self.assertEqual(cluster.canon, 'Aptalis Pharma US, Inc.')
+        self.assertFalse(cluster.validated)
+        self.assertEqual(3, len(cluster.variations))
+
     # -------------------------------------------------------------------------
     # Tests
     # -------------------------------------------------------------------------
@@ -81,11 +114,13 @@ class TestNameClusterDetail(unittest.TestCase):
         query = self.queryTransfer.format('Aptalis Pharma Inc.', CLUSTER2)
         rv = self.target.post(self.url + query)
         self.assertEqual(205, rv.status_code)
+        self.validateTransfer()
 
     def test_post_transfer_variant_int(self):
         query = self.queryTransfer.format(2, CLUSTER2)
         rv = self.target.post(self.url + query)
         self.assertEqual(205, rv.status_code)
+        self.validateTransfer()
 
     def test_post_transfer_bad_cluster(self):
         query = self.queryTransfer.format(2, 'notthere')
@@ -109,6 +144,7 @@ class TestNameClusterDetail(unittest.TestCase):
         query = self.queryNewCluster.format('Aptalis Pharma Inc.')
         rv = self.target.post(self.url + query)
         self.assertEqual(205, rv.status_code)
+        self.validateNewCluster()
 
     def test_post_new_cluster_variant_int(self):
         ns = self.dataContext[ID1]
@@ -117,6 +153,7 @@ class TestNameClusterDetail(unittest.TestCase):
         query = self.queryNewCluster.format(2)
         rv = self.target.post(self.url + query)
         self.assertEqual(205, rv.status_code)
+        self.validateNewCluster()
 
     def test_post_new_cluster_bad_variant_str(self):
         query = self.queryNewCluster.format('Aptalis Pharma')
@@ -137,11 +174,13 @@ class TestNameClusterDetail(unittest.TestCase):
         query = self.queryAsCanon.format('Aptalis Pharma Inc.')
         rv = self.target.post(self.url + query)
         self.assertEqual(204, rv.status_code)
+        self.validateSetAsCanon()
 
     def test_post_set_as_canon_variant_int(self):
         query = self.queryAsCanon.format(2)
         rv = self.target.post(self.url + query)
         self.assertEqual(204, rv.status_code)
+        self.validateSetAsCanon()
 
     def test_post_set_as_canon_bad_variant_str(self):
         query = self.queryAsCanon.format('Aptalis Pharma')
