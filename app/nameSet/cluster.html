@@ -1,0 +1,45 @@
+<md-content>
+
+  <md-card>
+    <md-card-content>
+
+      <md-button ng-click="reset()" class="md-fab">
+        <md-icon>replay</md-icon>
+      </md-button>
+      <md-button ng-click="undo()" ng-disabled="undoDisabled()" class="md-fab">
+        <md-icon>undo</md-icon>
+      </md-button>
+      <md-button ng-click="done()" class="md-fab md-primary">
+        <md-icon>done</md-icon>
+      </md-button>
+
+      <br>
+      <h2>
+        <md-input-container>
+          <input ng-model="cluster.canonicalName" class="" ng-blur="checkCanonicalName()" aria-label="Canonical Name">
+        </md-input-container>
+      </h2>
+
+      <div layout="row">
+
+        <div flex="50">
+          <md-subheader>Included Matches</md-subheader>
+          <div ng-repeat="included in cluster.included" ng-animate="'animate'" >
+            <md-button ng-click="exclude(included)">{{included}}</md-button>
+          </div>
+        </div>
+
+        <div flex="50">
+          <md-subheader class="md-warn">Excluded Matches</md-subheader>
+          <div ng-repeat="excluded in cluster.excluded">
+            <md-button ng-click="include(excluded)" class="md-accent">{{excluded}}</md-button>
+          </div>
+        </div>
+
+      </div> <!-- row -->
+ 
+
+    </md-card-content>
+  </md-card>
+
+</md-content>

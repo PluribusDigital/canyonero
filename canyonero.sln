@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "canyonero", "canyonero.pyproj", "{A62F8CC8-1EC1-4433-B355-370868530F80}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "app", "app\", "{9319DB18-7DFB-4186-ADE4-D9ACD9262A83}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/app"
+		Debug.AspNetCompiler.PhysicalPath = "app\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\app\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/app"
+		Release.AspNetCompiler.PhysicalPath = "app\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\app\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "55865"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A62F8CC8-1EC1-4433-B355-370868530F80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A62F8CC8-1EC1-4433-B355-370868530F80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9319DB18-7DFB-4186-ADE4-D9ACD9262A83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9319DB18-7DFB-4186-ADE4-D9ACD9262A83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9319DB18-7DFB-4186-ADE4-D9ACD9262A83}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{9319DB18-7DFB-4186-ADE4-D9ACD9262A83}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
