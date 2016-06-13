@@ -29,4 +29,6 @@
 
 # Python ignores
 **/*.egg-info/
+.eggs/
+venv/
 *.pyc

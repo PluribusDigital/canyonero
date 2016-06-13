@@ -187,7 +187,8 @@ class NameSet():
         self.lemmatizer = nltk.WordNetLemmatizer() 
         
         # Map to grouped key-value pairs
-        print("  Creating grouped key-value pairs", end=' ')
+        sys.stdout.write("  Creating grouped key-value pairs ")
+        sys.stdout.flush()
         gkv = defaultdict(list)
         for v in sorted(self._names):
             k = self.makeClusterKey(v)
@@ -204,7 +205,8 @@ class NameSet():
         keys = sorted(gkv)
 
         # Build the clusters
-        print("  Build the clusters from the B-K Tree", end=' ')
+        sys.stdout.write("  Build the clusters from the B-K Tree ")
+        sys.stdout.flush()
         for k in keys:
             relatedKeys = []
             tree.search(k, self.threshold, relatedKeys)
